@@ -1,5 +1,6 @@
 package com.rifkyaziz.vertx;
 
+import com.rifkyaziz.vertx.handler.MainHandler;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Router;
@@ -16,13 +17,7 @@ class MainRouterBuilder {
     Router build() {
         Router router = Router.router(this.vertx);
 
-        router.route("/").handler( routingContext -> {
-            HttpServerResponse response = routingContext.response();
-
-            String exampleResponse = "{ \"message\": \"Hello World\"}";
-            response.putHeader("content-type", "application/json")
-                    .end(exampleResponse);
-        });
+        router.route("/").handler(MainHandler::homeHandler);
 
         return router;
     }
